@@ -1,0 +1,6 @@
+{{extend 'layoutindex.html'}}
+
+      <div class="well">
+        <h1>Contact.</h1>
+          <p>email : afspraakassistent@gmail.com</p>
+      </div>

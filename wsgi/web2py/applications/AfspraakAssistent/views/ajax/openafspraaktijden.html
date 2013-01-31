@@ -1,0 +1,8 @@
+{{if (len(items)>0):}}
+	{{for it in items:}}
+		<h4>{{=it[0].strftime("%A %d %B %Y")}}</h4>
+        {{for subit in it[1]:}}
+            <span class="label">{{=subit.strftime("%H:%M")}}</span>
+        {{pass}}
+	{{pass}}
+{{pass}}

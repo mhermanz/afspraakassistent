@@ -1,0 +1,122 @@
+{{extend 'layout.html'}}
+
+
+<div class="container">
+    <legend>Een eigen afspraakassistent in 4 stappen.</legend>
+    <ul class="nav nav-pills" id="myTab">
+	    <li class="active"><a href="#intro" data-toggle="tab">Stap 1. Welkomstekst</a></li>
+	    <li><a href="#typen" data-toggle="tab">Stap 2. Soorten afspraken</a></li>
+	    <li><a href="#tijden" data-toggle="tab">Stap 3. Tijden</a></li>
+	    <li><a href="#resultaat" data-toggle="tab">Stap 4. Resultaat</a></li>
+    </ul>
+</div>
+
+
+<div class="tab-content" id="tabcontent">
+    <div class="tab-pane active" id="intro">
+        <textarea id="introeditor" name="introarea" rows="6" style="width: 80%;">
+            {{=intro}}
+        </textarea>
+        <br>
+        <button class="btn btn-primary" onclick="saveintro()">Opslaan</button>
+        <hr/>
+    </div>
+    
+    <div class="tab-pane" id="typen">
+         <div class="input-append">
+          <input id="afspraaktype" type="text" placeholder="afspraaktype">
+          <button class="btn" type="button" onclick="addafspraaktype()">Voeg toe</button>
+        </div>
+          <div id="afspraaktypeholder">
+          </div>
+          <div id="editafspraaktypeholder">
+          </div>
+    </div>
+    
+    <div class="tab-pane" id="tijden">
+        <div id="datepicker"></div>
+        <br/>
+         <div id="tijdholder">
+         </div>
+    </div>
+    
+    <div class="tab-pane" id="resultaat">
+          <div class="well" id="resultaatholder">
+              <p><strong>Gefeliciteerd!</strong> U heeft nu uw eigen afspraken site.</p>
+              <p>Het resultaat kunt u bekijken op:</p>
+              <a href="{{=site}}" type="text"><strong>{{=site}}</strong></a>
+          </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+function saveintro(){
+	var content = $("#intro").find('.nicEdit-main').html();
+    $.post("/AfspraakAssistent/ajax/saveintro",{html:content},function(result){});
+}
+function addafspraaktype(){
+	var content = $("#afspraaktype").val();
+    $.post("/AfspraakAssistent/ajax/addafspraaktype",{afspraaktype:content},function(result){
+        loadafspraaktype();
+    });
+}
+function removeafspraaktype(id){
+    $.post("/AfspraakAssistent/ajax/removeafspraaktype",{afspraakid:id},function(result){
+        loadafspraaktype();
+    });
+}
+function editafspraaktype(id){
+    $.post("/AfspraakAssistent/ajax/editafspraaktype",{afspraakid:id},function(result){
+        $("#editafspraaktypeholder").empty();
+        $("#editafspraaktypeholder").append(result);
+        $("#editafspraaktypeholder").trigger("update");
+    });
+}
+function saveafspraaktype(id){
+    var atnaam = $("#atnaam").val();
+	var atlengte = $("#atlengte").val();
+    $("#editafspraaktypeholder").empty();
+    $.post("/AfspraakAssistent/ajax/saveafspraaktype",{afspraakid:id,naam:atnaam,lengte:atlengte},function(result){
+        loadafspraaktype();
+    });
+}
+function loadafspraaktype(){
+    $.post("/AfspraakAssistent/ajax/loadafspraaktype",function(result){
+        $("#afspraaktypeholder").empty();
+        $("#afspraaktypeholder").append(result);
+        $("#afspraaktypeholder").trigger("update");
+    });
+	loadtijden();
+}
+var curAfspraakDate = new Date();
+function loadtijden(){
+    var dstr = curAfspraakDate.getFullYear() + "-" + (curAfspraakDate.getMonth() + 1)  + "-" + curAfspraakDate.getDate();
+    $.post("/AfspraakAssistent/ajax/loadtijden",{datum:dstr},function(result){
+        $("#tijdholder").empty();
+        $("#tijdholder").append(result);
+        $("#tijdholder").trigger("update");
+    });
+}
+function toggle(sender,typeid, dt)
+{
+    if ($(sender).hasClass('badge-success')){
+    	$(sender).removeClass('badge-success');
+        $.post("/AfspraakAssistent/ajax/deletetijd",{afspraaktypeid:typeid,tijd:dt},function(result){});
+    }else{
+    	$(sender).addClass('badge-success');
+    	$.post("/AfspraakAssistent/ajax/addtijd",{afspraaktypeid:typeid,tijd:dt},function(result){});
+    }
+}
+
+$(document).ready(function() { 
+	loadafspraaktype();
+    $('#datepicker').datepicker({
+        format: 'mm-dd-yyyy',
+        autoclose: true,
+        language: 'nl'
+    }).on('changeDate', function(ev){
+        curAfspraakDate = ev.date;
+        loadtijden();
+    });
+})
+</script>

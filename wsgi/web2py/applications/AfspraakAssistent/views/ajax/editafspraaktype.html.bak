@@ -1,0 +1,9 @@
+<div class="well">
+    <legend>Wijzig afspraaktype</legend>
+    <label>Naam</label>
+     <input type="text" placeholder="naam" value="{{=afspraak.naam}}" id="atnaam">
+    <label>Lengte in minuten</label>
+    <input type="text" placeholder="lengte in minuten" value="{{=afspraak.lengte}}" id="lengte">
+    <br/>
+    <button class="btn btn-primary" onclick="saveafspraaktype({{=afspraak.id}})">Opslaan</button>
+</div>

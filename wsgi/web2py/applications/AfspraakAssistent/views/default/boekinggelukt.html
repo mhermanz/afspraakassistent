@@ -1,0 +1,14 @@
+{{extend 'layout.html'}}
+<div class="well">
+    <legend>U boeking is geslaagd.</legend>
+    <p>waar: <strong>{{=waar}}</strong></p>
+    <p>wat: <strong>{{=wat}}</strong></p>
+    <p>wanneer: <strong>{{=wanneer}}</strong></p><br>
+    <button class="btn" type="button" onclick="linkterug()">terug naar de website</button>
+</div>
+
+<script type="text/javascript">
+function linkterug(){
+    window.location.href = "{{=url}}";
+}
+</script>

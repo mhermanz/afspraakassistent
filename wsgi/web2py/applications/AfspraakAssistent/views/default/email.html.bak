@@ -1,0 +1,30 @@
+{{extend 'layout.html'}}
+<div class="well">
+    <legend>Vul hier uw emailadres in</legend>
+    <input id="email" type="text" placeholder="email"><br>
+    <button class="btn btn-primary" type="button" onclick="checkemail({{=userid}},{{=afspraaktypeid}},{{=afspraaktijdstipid}})">Ga verder</button>
+</div>
+
+
+
+<script type="text/javascript">
+
+
+function validate(email){
+   var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+   return reg.test(email);
+}
+
+function checkemail(userid,afspraaktypeid,afspraaktijdstipid){
+    var email = $("#email").val();
+    if (validate(email)){
+        alert(":)");
+        window.location.href = "{{=URL('boek',vars={'uid':userid,'at':afspraaktypeid,'ats':afspraaktijdstipid,'email':'emai1'})}}".replace("emai1",email);
+    }
+    else{
+        $("<div class='alert alert-error'><button type='button' class='close' data-dismiss='alert'>&times;</button> ongeldig emailadres!</div>").insertAfter("#email");
+    }
+}
+
+
+</script>

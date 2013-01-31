@@ -1,0 +1,11 @@
+{{=datum}}
+    {{if (len(items)>0):}}
+    {{for it in items:}}
+        {{for subit in it[1]:}}
+        	<h4>{{=subit[0].naam}}</h4>
+            {{for subsubit in subit[1]:}}
+<a onclick="toggle(this,{{=subit[0].id}},'{{=it[0].strftime("%Y-%m-%d")}}{{=subsubit[0].strftime("T%H:%M")}}')" class="badge{{if (subsubit[1] == True):}} badge-success{{pass}}">{{=subsubit[0].strftime("%H:%M")}}</a>
+            {{pass}}
+        {{pass}}
+    {{pass}}
+{{pass}}

@@ -1,0 +1,12 @@
+{{if (len(afspraaktypen)>0):}}
+<table class="table  table-condensed table-hover">
+    <thead>
+    <tr><th>Type</th><th>Opties</th></tr>
+    </thead>
+    <tbody>
+	{{for item in afspraaktypen:}}
+	<tr><td>{{=item['naam']}}</td><td><button class="btn btn-small">verwijder</button><button class="btn btn-small">stel afspraaktijden in</button></td></tr>
+	{{pass}}
+    </tbody>
+</table>
+{{pass}}

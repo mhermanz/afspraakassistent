@@ -1,0 +1,70 @@
+{{extend 'layout.html'}}
+<div class="well">
+    <legend>Dit is de eerste keer dat u een afspraak boekt. Vul de volgende velden.</legend>
+    <input id="email" type="text" placeholder="email" value="{{=email}}" readonly><br>
+    <input id="naam" type="text" placeholder="volledige naam"><br>
+    <input id="telefoon" type="text" placeholder="telefoon"><br>
+    <input id="straat" type="text" placeholder="straatnaam"><br>
+    <input id="huisnummer" type="text" placeholder="huisnummer en toevoeging"><br>
+    <input id="postcode" type="text" placeholder="postcode"><br>
+    <input id="plaats" type="text" placeholder="plaatsnaam"><br>
+    <button class="btn btn-primary" type="button" onclick="checkfields()">Ga verders</button>
+</div>
+
+<script type="text/javascript">
+
+function checkfields()
+    {$(".alert").remove();
+    var error = false;
+    if (checkfield("#naam") === false){
+      error = true;
+    };
+    if (checkfield("#telefoon") === false){
+      error = true;
+    };
+    if (checkfield("#straat") === false){
+      error = true;
+    };
+    if (checkfield("#huisnummer") === false){
+      error = true;
+    };
+    if (checkfield("#postcode") === false){
+      error = true;
+    };
+    if (checkfield("#plaats") === false){
+      error = true;
+    };
+    if (error === false){
+       saveklant()
+    }
+};
+
+
+function saveklant(){
+    $("#editafspraaktypeholder").empty();
+    $.post("/AfspraakAssistent/ajax/saveklant",{
+        	email:$("#email").val(),
+        	naam:$("#naam").val(),
+        	telefoon:$("#telefoon").val(),
+        	straat:$("#straat").val(),
+        	huisnummer:$("#huisnummer").val(),
+        	postcode:$("#postcode").val(),
+        	plaats:$("#plaats").val()},function(result){
+        window.location.href = "{{=url}}";
+    });
+}
+
+function validate(field){
+   return (field !== "");
+}
+    
+function checkfield(fieldid){
+	var fieldvalue = $(fieldid).val();
+    if (validate(fieldvalue)===false){
+        $("<div class='alert alert-error'><button type='button' class='close' data-dismiss='alert'>&times;</button> dit veld is niet gevuld!</div>").insertAfter(fieldid);
+        return false;
+    }
+    return true;
+}
+
+</script>

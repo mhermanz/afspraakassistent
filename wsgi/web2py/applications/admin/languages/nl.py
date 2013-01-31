@@ -392,6 +392,7 @@
 'There are no models': 'Er zijn geen modellen',
 'There are no modules': 'Er zijn geen modules',
 'There are no plugins': 'Er zijn geen plugins',
+'There are no private files': 'There are no private files',
 'There are no static files': 'Er zijn geen statische bestanden',
 'There are no translators': 'Er zijn geen vertalingen',
 'There are no translators, only default language is supported': 'Er zijn geen vertalingen, alleen de standaardtaal wordt ondersteund.',

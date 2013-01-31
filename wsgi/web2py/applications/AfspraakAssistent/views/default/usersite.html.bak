@@ -1,0 +1,14 @@
+{{extend 'layout.html'}}
+{{=XML(intro)}}
+
+    <div class="well">
+{{for datum in datums:}}
+<h4>{{=datum[0].strftime("%A %d %B %Y")}}</h4>
+    {{for type in datum[1]:}}
+        <h5>{{=type[0]}}</h5>
+    	{{for row in type[1]:}}
+        <a href="{{=URL('email',vars={'at':row.afspraaktype.id,'ats':row.afspraaktijdstip.id})}}" class="badge badge-success">{{=row.afspraaktijdstip.tijd.strftime("%H:%M")}}</a>
+        {{pass}}
+    {{pass}}
+{{pass}}
+	</div>

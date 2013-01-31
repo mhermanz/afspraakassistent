@@ -1,10 +1,10 @@
 from setuptools import setup
 
-setup(name='YourAppName',
+setup(name='AfspraakAssistent',
       version='1.0',
       description='OpenShift App',
-      author='Your Name',
-      author_email='example@example.com',
+      author='Martijn Hermans',
+      author_email='martijn.hermans@gmail.com',
       url='http://www.python.org/sigs/distutils-sig/',
       install_requires=['newrelic','GitPython'],
      )

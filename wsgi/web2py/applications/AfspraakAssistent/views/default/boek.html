@@ -1,0 +1,29 @@
+{{extend 'layout.html'}}
+<div class="well">
+    <legend>Bevestig uw afspraak.</legend>
+    <p>waar: <strong>{{=waar}}</strong></p>
+    <p>wat: <strong>{{=afspraaktype}}</strong></p>
+    <p>wanneer: <strong>{{=wanneer}}</strong></p><br>
+    <button class="btn btn-primary" type="button" onclick="boekafspraak({{=klantid}},{{=userid}},{{=afspraaktypeid}},{{=afspraaktijdstipid}},'{{=email}}')">Boek</button>
+</div>
+
+<script type="text/javascript">
+
+function boekafspraak(klantid,userid,afspraaktypeid,afspraaktijdstipid,email){
+    $.post("/AfspraakAssistent/ajax/boekafspraak",{
+        	klantid:klantid,
+        	userid:userid,
+        	afspraaktypeid:afspraaktypeid,
+        	afspraaktijdstipid:afspraaktijdstipid,
+        	email:email},function(result){
+                if (result == "True"){
+                    window.location.href = "{{=urlok}}";
+                }
+                if (result == "False"){
+                    window.location.href = "{{=urlerror}}";
+                }
+    });
+}
+
+
+</script>
