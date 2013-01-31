@@ -157,6 +157,7 @@
 'file saved on %s': 'bestand bewaard op %s',
 'First name': 'Voornaam',
 'Forbidden': 'Verboden',
+'Forgot username?': 'Forgot username?',
 'Forms and Validators': 'Formulieren en Validators',
 'Free Applications': 'Gratis Applicaties',
 'Functions with no doctests will result in [passed] tests.': 'Functies zonder doctests zullen resulteren in [passed] tests.',
