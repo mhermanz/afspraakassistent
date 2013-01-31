@@ -1,1 +1,1 @@
-password="<your password hash here>"
+password="pbkdf2(1000,20,sha512)$a7f999cc074ec734$9d876289e972f0f2fc0cf8fe1c1564cce72815d5"
